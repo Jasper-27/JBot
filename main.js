@@ -147,7 +147,7 @@ client.on('message', msg => {
   if (msg.content === 'ping') {
     msg.reply('Pong!');
   }
-  if (msg.content === '!test'){
+  if (msg.content === 'jBot test'){
     msg.channel.send(`Test succesfull`)
   }
 
@@ -163,8 +163,9 @@ client.on('message', msg => {
 
   }
 
-  if (msg.content.toLowerCase() === "uwu"){
+  if (string.includes('uwu', msg.content.toLowerCase()){
     //msg.channel.send("UwU");  // Yeah. Don't do that. That breaks things
+    msg.react('🤮')
     msg.author.send('Fuck you');
   }
 
