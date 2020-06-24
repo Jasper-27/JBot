@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
+const fs = require('fs');
 const client = new Discord.Client()
 const channel = client.channels.cache.get('644539373077004299')
-const fs = require('fs');
 
 
 
@@ -42,6 +42,8 @@ class user {
 let rawdata = fs.readFileSync(userFile);
 let users = JSON.parse(rawdata);
 
+//Shows all the users in the array
+console.log(users)
 
 
 function niceCode(msg){
@@ -89,7 +91,6 @@ function niceCode(msg){
 
     }
 
-
   }
 
 
@@ -97,12 +98,6 @@ function niceCode(msg){
     lastTime = now
     console.log("Time has been set")
   }
-
-
-  console.log("Message time : " + now);
-  console.log("Last recorded time: " + lastTime);
-  console.log("Difference: " + (now - lastTime));
-  console.log();
 
 
   if ((now - lastTime) > saveTime){
@@ -114,22 +109,22 @@ function niceCode(msg){
     fs.writeFileSync("users.JSON", JSON.stringify(users, null, 2));
   }
 
-
 }
-
 
 
 //When the client connects
 client.on('ready', () => {
 
-///console.log("We are in")
 console.log(`logged in as ${client.user.tag}!`)
+
+//Sets the bots username and activity
+client.user.setUsername('jBot');
+client.user.setActivity('Doing Bot things');
 
 })
 
 
-
-
+//When a new user is added to the discord
 client.on('guildMemberAdd', member => {
   console.log("New member was added")
   // Send the message to a designated channel on a server:
@@ -173,10 +168,6 @@ client.on('message', msg => {
     msg.author.send('Fuck you');
   }
 
-
-
-
-
 })
 
 // Checks to see if the userID is in the array of allready created users
@@ -192,7 +183,6 @@ function findUsers(userID){
       console.log("Found")
       user = i;
     }
-
 
   });
 
@@ -222,15 +212,3 @@ client.on("disconnected", function () {
 	process.exit(1); //exit node.js with an error
 
 });
-
-
-
-//client.on("message", function(message) {
-  //message sending goes here
-  //message.channel.send('Node is the best')
-//});
-
-
-//*/
-
- // Replace XXXXX with your bot token
