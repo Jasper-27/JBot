@@ -12,16 +12,16 @@ const channel = client.channels.cache.get('644539373077004299')
 var data = fs.readFileSync('token.txt',{encoding:'utf8', flag:'r'});
 
 
-//Removes the newline from the token file
-data = data.replace(/(\r\n|\n|\r)/gm, "");
+
+data = data.replace(/(\r\n|\n|\r)/gm, ""); //Removes the newline from the token file
 
 client.login(data)
 
-//File used for the JSON
-var userFile = 'users.json'
 
-// Used to check the time between "Nice" messages
-var lastTime = null
+var userFile = 'users.json'  //File used for the JSON
+
+
+var lastTime = null  // Used to check the time between "Nice" messages
 
 // 5 mins, 60 seconds in a min, 1000 ms in a second
 var saveTime = 5 * 60 * 1000; /* ms */
@@ -33,10 +33,6 @@ class user {
   NC
   RNC
 }
-
-// How to make the new user
-//test = {ID:"test", NC: 0, RNC: 0,}
-
 
 
 //Creating the users array from the json
@@ -105,8 +101,6 @@ function niceCode(msg){
 
 
   if ((now - lastTime) > saveTime){
-    //console.log("Saving users to file");
-
     lastTime = now;
     console.log("Saving users");
 
@@ -150,7 +144,7 @@ client.on('message', msg => {
     return
   }
 
-  // My ID
+  // My ID. So it only does things when i ask it too
   if (msg.author.id === "326743504443146241"){
 
     if (msg.content === ":jBot save"){
@@ -185,7 +179,6 @@ client.on('message', msg => {
 
 
   if (msg.content.toLowerCase().includes("uwu")){
-    //msg.channel.send("UwU");  // Yeah. Don't do that. That breaks things
     msg.react('🤮')
     msg.author.send('Fuck you');
   }
@@ -194,22 +187,15 @@ client.on('message', msg => {
 
 // Checks to see if the userID is in the array of allready created users
 function findUsers(userID){
-
   var user = null;
   users.forEach((item, i) => {
-    //console.log(item.ID)
-    //console.log(item.ID + " : " + userID)
 
-    //var testi = item.ID
     if (item.ID === userID){
-      console.log("Found")
       user = i;
     }
-
   });
 
-  // Returns 0 if the user was not found
-  return user;
+  return user;  // Returns null if the user was not found
 }
 
 // clears the recent nice count of all the users
@@ -223,8 +209,8 @@ function clearRN(){
 
 }
 
-//Runs the clear nice function every 2 mins
-setInterval(clearRN, (5 * 60 * 1000));
+
+setInterval(clearRN, (5 * 60 * 1000));   //Runs the clear nice function every 2 mins
 
 
 //Says when it disconnects
