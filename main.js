@@ -46,6 +46,11 @@ let users = JSON.parse(rawdata);
 //Shows all the users in the array
 console.log(users)
 
+function saveToFiles(){
+  console.log("Saving users to file")
+  console.log(users)
+  fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
+}
 
 function niceCode(msg){
 
@@ -105,7 +110,7 @@ function niceCode(msg){
     lastTime = now;
     console.log("Saving users");
 
-    fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
+    saveToFiles()
   }
 
 }
@@ -150,7 +155,7 @@ client.on('message', msg => {
 
     if (msg.content === ":jBot save"){
       msg.channel.send("Saving users file")
-      fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
+      saveToFiles()
     }
 
   }
@@ -220,7 +225,6 @@ function clearRN(){
 
 //Runs the clear nice function every 2 mins
 setInterval(clearRN, (5 * 60 * 1000));
-
 
 
 //Says when it disconnects
