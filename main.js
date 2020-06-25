@@ -73,18 +73,23 @@ function niceCode(msg){
     users[theUserIndex].RNC++
     console.log(msg.member.user.username + "'s recent \"Nice\" count has gone up to " + users[theUserIndex].RNC)
 
-    if (users[theUserIndex].RNC > 5){
+    if (users[theUserIndex].RNC > 3){
       msg.reply("Watch it sunshine")
+
     }
 
     // The kicking can cause an error. Not an issue now but soon will cause the app to crash
     // I can't find a work around at the moment
 
-    if (users[theUserIndex].RNC > 10){
-      msg.author.send('Cunt');
+
+    // The try is not working. Not sure why 
+    if (users[theUserIndex].RNC > 6){
       try {
+        msg.channel.send("Kicking user: " + msg.author.username + ", for spamming");
         msg.member.kick();
+        msg.author.send('You got kicked for spamming. Don\'t be a dick');
       }catch(err){
+        msg.channel.send("Could not kick user. You got lucky this time")
         console.log("Could not kick user")
         console.log(err)
       }
