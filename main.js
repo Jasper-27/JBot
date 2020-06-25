@@ -144,19 +144,13 @@ client.on('message', msg => {
     return
   }
 
-  // My ID. So it only does things when i ask it too
-  if (msg.author.id === "326743504443146241"){
-
-    if (msg.content === ":jBot save"){
-      msg.channel.send("Saving users file")
-      saveToFiles()
-    }
-
-  }
-
 
   if (msg.content === 'ping') {
     msg.reply('Pong!');
+  }
+
+  if (msg.content.toLowerCase() === 'marco' || msg.content.toLowerCase() === 'marco!' ){
+    msg.reply("Polo!")
   }
 
   if (msg.content.toLowerCase() === 'hello there') {
@@ -182,6 +176,21 @@ client.on('message', msg => {
     msg.react('🤮')
     msg.author.send('Fuck you');
   }
+
+  // Commands (Soon this will be a different thing )
+
+  // My ID. So it only does things when i ask it too
+  if (msg.author.id === "326743504443146241"){
+
+    if (msg.content === ":jBot save"){
+      msg.channel.send("Saving users file")
+      saveToFiles()
+    }
+
+  }
+
+  
+
 
 })
 
