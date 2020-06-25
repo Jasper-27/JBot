@@ -1,3 +1,19 @@
+/*
+To get this program to work you need two files 
+
+1. token.txt (A file containing your discord bots token)
+2. users.json. a json file which can be empty, but must exist 
+
+
+
+*/
+
+
+
+
+
+
+
 const Discord = require('discord.js')
 const fs = require('fs');
 const client = new Discord.Client()
@@ -9,13 +25,9 @@ const channel = client.channels.cache.get('644539373077004299')
 // The token
 
 
-var data = fs.readFileSync('token.txt',{encoding:'utf8', flag:'r'});
-
-
-
-data = data.replace(/(\r\n|\n|\r)/gm, ""); //Removes the newline from the token file
-
-client.login(data)
+var token = fs.readFileSync('token.txt',{encoding:'utf8', flag:'r'});
+token = token.replace(/(\r\n|\n|\r)/gm, ""); //Removes the newline from the token file
+client.login(token)
 
 
 var userFile = 'users.json'  //File used for the JSON
