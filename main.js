@@ -2,8 +2,6 @@
 To get this program to work you need two files 
 
 1. token.txt (A file containing your discord bots token)
-2. users.json. a json file which can be empty, but must exist 
-
 
 
 */
@@ -30,7 +28,6 @@ token = token.replace(/(\r\n|\n|\r)/gm, ""); //Removes the newline from the toke
 client.login(token)
 
 
-var userFile = 'users.json'  //File used for the JSON
 
 
 var lastTime = null  // Used to check the time between "Nice" messages
@@ -47,9 +44,24 @@ class user {
 }
 
 
+
+
+
+if (fs.existsSync('users.json')) {
+  var userFile = 'users.json'
+  
+}else{
+  fs.writeFileSync("users.json", JSON.stringify([], null, 2));
+  var userFile = 'users.json'
+}
+
+
 //Creating the users array from the json
 let rawdata = fs.readFileSync(userFile);
 let users = JSON.parse(rawdata);
+
+
+
 
 //Shows all the users in the array
 console.log(users)
