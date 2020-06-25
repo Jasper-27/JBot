@@ -29,12 +29,13 @@ var saveTime = 5 * 60 * 1000; /* ms */
 
 class user {
   ID
+  UName
   NC
-  RN
+  RNC
 }
 
 // How to make the new user
-//test = {ID:"test", NC: 0, RN: 0,}
+//test = {ID:"test", NC: 0, RNC: 0,}
 
 
 
@@ -55,14 +56,12 @@ function niceCode(msg){
 
 
   if (theUserIndex == null){
-    console.log("New user")
 
-    newUser = {ID:msg.member.id, NC: 1, RN: 0,}
-
+    //Creates a new user with basic entry in the json file
+    console.log("New user: " + msg.member.id)
+    newUser = {ID:msg.member.id, UName:msg.author.username, NC: 1, RNC: 0,}
     users.push(newUser)
-
     console.log(newUser)
-
     msg.channel.send("This is " + msg.member.user.username + "'s first \"Nice\" ");
 
   }else{
@@ -70,17 +69,17 @@ function niceCode(msg){
     users[theUserIndex].NC++
     msg.channel.send(msg.member.user.username + "'s \"Nice\" count has gone up to " + users[theUserIndex].NC);
 
-    users[theUserIndex].RN++
-    console.log(msg.member.user.username + "'s recent \"Nice\" count has gone up to " + users[theUserIndex].RN)
+    users[theUserIndex].RNC++
+    console.log(msg.member.user.username + "'s recent \"Nice\" count has gone up to " + users[theUserIndex].RNC)
 
-    if (users[theUserIndex].RN > 5){
+    if (users[theUserIndex].RNC > 5){
       msg.reply("Watch it sunshine")
     }
 
     // The kicking can cause an error. Not an issue now but soon will cause the app to crash
     // I can't find a work around at the moment
 
-    if (users[theUserIndex].RN > 10){
+    if (users[theUserIndex].RNC > 10){
       msg.author.send('Cunt');
       try {
         msg.member.kick();
@@ -106,7 +105,7 @@ function niceCode(msg){
     lastTime = now;
     console.log("Saving users");
 
-    fs.writeFileSync("users.JSON", JSON.stringify(users, null, 2));
+    fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
   }
 
 }
@@ -119,7 +118,7 @@ console.log(`logged in as ${client.user.tag}!`)
 
 //Sets the bots username and activity
 client.user.setUsername('jBot');
-client.user.setActivity('Doing Bot things');
+client.user.setActivity('Doing bot things');
 
 })
 
@@ -137,6 +136,9 @@ client.on('guildMemberAdd', member => {
 
 //Runs when the message is read
 client.on('message', msg => {
+
+
+  console.log(msg.author.username + " : " + msg.content)
 
   if(msg.author === client.id){
     console.log("message from me")
@@ -163,7 +165,10 @@ client.on('message', msg => {
 
   }
 
-  if (string.includes('uwu', msg.content.toLowerCase()){
+
+
+
+  if (msg.content.toLowerCase().includes("uwu")){
     //msg.channel.send("UwU");  // Yeah. Don't do that. That breaks things
     msg.react('🤮')
     msg.author.send('Fuck you');
@@ -195,15 +200,16 @@ function findUsers(userID){
 function clearRN(){
 
   users.forEach((item, i) => {
-    item.RN = 0
+    item.RNC = 0
   });
 
-  console.log("NR Cleared");
+  console.log("Cleared recent nice count");
 
 }
 
 //Runs the clear nice function every 2 mins
 setInterval(clearRN, (5 * 60 * 1000));
+
 
 
 //Says when it disconnects
