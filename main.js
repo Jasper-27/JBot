@@ -145,12 +145,18 @@ client.on('message', msg => {
     return
   }
 
+  // My ID
+  if (msg.author.id === "326743504443146241"){
+    msg.reply("Hello Master")
+  }
+
 
   if (msg.content === 'ping') {
     msg.reply('Pong!');
   }
-  if (msg.content === 'jBot test'){
-    msg.channel.send(`Test succesfull`)
+
+  if (msg.content.toLowerCase() === 'hello there') {
+    msg.channel.send('General Kenobi! You are a bold one');
   }
 
 
