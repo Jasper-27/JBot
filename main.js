@@ -147,7 +147,12 @@ client.on('message', msg => {
 
   // My ID
   if (msg.author.id === "326743504443146241"){
-    msg.reply("Hello Master")
+
+    if (msg.content === ":jBot save"){
+      msg.channel.send("Saving users file")
+      fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
+    }
+
   }
 
 
