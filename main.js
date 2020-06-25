@@ -126,6 +126,8 @@ client.user.setActivity('Doing bot things');
 
 })
 
+/*  Commented out because it is not working 
+
 
 //When a new user is added to the discord
 client.on('guildMemberAdd', member => {
@@ -137,6 +139,10 @@ client.on('guildMemberAdd', member => {
   // Send the message, mentioning the member
   channel.send(`Welcome to the server, ${member}`);
 });
+
+*/
+
+
 
 //Runs when the message is read
 client.on('message', msg => {
