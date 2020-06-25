@@ -86,8 +86,8 @@ function niceCode(msg){
     if (users[theUserIndex].RNC > 6){
       try {
         msg.channel.send("Kicking user: " + msg.author.username + ", for spamming");
+        msg.author.send("Don't spam. It is just annoying and gets you kicked");
         msg.member.kick();
-        msg.author.send('You got kicked for spamming. Don\'t be a dick');
       }catch(err){
         msg.channel.send("Could not kick user. You got lucky this time")
         console.log("Could not kick user")
