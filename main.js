@@ -182,10 +182,13 @@ client.on('message', msg => {
   // My ID. So it only does things when i ask it too
   if (msg.author.id === "326743504443146241"){
 
-    if (msg.content === ":jBot save"){
+    if (msg.content === "jBot: save"){
       msg.channel.send("Saving users file")
       saveToFiles()
     }
+
+
+
 
   }
 
