@@ -171,7 +171,6 @@ client.on('guildMemberAdd', member => {
 //Runs when the message is read
 client.on('message', msg => {
 
-
   console.log(msg.author.username + " : " + msg.content)
 
   if(msg.author === client.id){

@@ -18,6 +18,7 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - A poll system based on reactions
 - Kick user using username 
 - Needs ther permision to kick people 
+- Black list feature: Add a user to a blacklist if they spam (as well as block)
 
 
 ### Issues 
