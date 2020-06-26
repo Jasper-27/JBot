@@ -113,6 +113,7 @@ function niceCode(msg){
     // The try is not working. Not sure why
     if (users[theUserIndex].RNC > 6){
       try {
+        users[theUserIndex].NC = 0; 
         msg.channel.send("Kicking user: " + msg.author.username + ", for spamming");
         msg.author.send("Don't spam. It is just annoying and gets you kicked");
         msg.member.kick();
