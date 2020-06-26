@@ -23,3 +23,5 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 ### Issues 
 
 - Errors out when kicking some people 
+- "playing" bot things 
+- very slow. Need to slim down 
