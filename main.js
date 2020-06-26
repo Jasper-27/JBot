@@ -1,5 +1,5 @@
 /*
-To get this program to work you need two files 
+To get this program to work you need two files
 
 1. token.txt (A file containing your discord bots token)
 
@@ -49,7 +49,7 @@ class user {
 
 if (fs.existsSync('users.json')) {
   var userFile = 'users.json'
-  
+
 }else{
   fs.writeFileSync("users.json", JSON.stringify([], null, 2));
   var userFile = 'users.json'
@@ -73,8 +73,12 @@ function saveToFiles(){
 }
 
 function niceCode(msg){
+  try{
+      theUserIndex = findUsers(msg.member.id)
+  }catch{
+    return
+  }
 
-  theUserIndex = findUsers(msg.member.id)
 
   var now = new Date();
   now = now - 0
@@ -106,7 +110,7 @@ function niceCode(msg){
     // I can't find a work around at the moment
 
 
-    // The try is not working. Not sure why 
+    // The try is not working. Not sure why
     if (users[theUserIndex].RNC > 6){
       try {
         msg.channel.send("Kicking user: " + msg.author.username + ", for spamming");
@@ -150,7 +154,7 @@ client.user.setActivity('Doing bot things');
 
 })
 
-/*  Commented out because it is not working 
+/*  Commented out because it is not working
 
 
 //When a new user is added to the discord
@@ -226,7 +230,7 @@ client.on('message', msg => {
 
   }
 
-  
+
 
 
 })
