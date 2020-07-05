@@ -12,7 +12,7 @@ const Discord = require('discord.js')
 const fs = require('fs');
 const client = new Discord.Client()
 const channel = client.channels.cache.get('644539373077004299')
-
+const sortArray = require('sort-array')
 
 
 //https://discord.com/oauth2/authorize?client_id=717442260131774485&scope=bot
@@ -190,6 +190,21 @@ client.on('message', msg => {
 
   if (msg.content.toLowerCase() === 'hello there') {
     msg.channel.send('General Kenobi! You are a bold one');
+  }
+
+  if (msg.content.toLowerCase() === "nice rankings"){
+
+    sortArray(users, {
+      by: 'NC',
+      order: 'desc'
+    })
+
+    users.forEach((item, i) => {
+
+      msg.channel.send(item.UName + ": " + item.NC)
+    });
+
+
   }
 
 

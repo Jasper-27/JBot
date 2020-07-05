@@ -4,6 +4,7 @@
 ### Dependencies
 - node.js
 - Discord.js  
+- sort-array
 
 ### Purpose
 
