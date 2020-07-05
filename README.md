@@ -15,8 +15,8 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Kicks and messages user if they spam the message "Nice"
 - Reacts with a 🤮 when a user's message contains the word "uwu"
 - Commands  
-+ jbot: kick <user>
-+ jbot: save
+  + jbot: kick <user>
+  + jbot: save
 
 
 ### Features I want to implement
