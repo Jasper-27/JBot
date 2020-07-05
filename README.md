@@ -31,7 +31,7 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 
 
 ### Issues
-
+- Large groups will be to much for the "nice rankings". Need to rewrite that sections finding each users position and outputting top 10
 - Kicking people out of servers is a bit much. Maybe a block list would work better
 - Errors out when kicking some people
 - "playing" bot things

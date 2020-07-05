@@ -192,6 +192,13 @@ client.on('message', msg => {
     msg.channel.send('General Kenobi! You are a bold one');
   }
 
+
+/*
+ this bit is broken. Takes ages and too large a group will fuck it.
+
+
+Write a routine that finds each users position individually. Much better and more reusable. 
+*/
   if (msg.content.toLowerCase() === "nice rankings"){
 
     sortArray(users, {
