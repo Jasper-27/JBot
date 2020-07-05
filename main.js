@@ -8,10 +8,6 @@ To get this program to work you need two files
 
 
 
-
-
-
-
 const Discord = require('discord.js')
 const fs = require('fs');
 const client = new Discord.Client()
@@ -113,7 +109,7 @@ function niceCode(msg){
     // The try is not working. Not sure why
     if (users[theUserIndex].RNC > 6){
       try {
-        users[theUserIndex].NC = 0; 
+        users[theUserIndex].NC = 0;
         msg.channel.send("Kicking user: " + msg.author.username + ", for spamming");
         msg.author.send("Don't spam. It is just annoying and gets you kicked");
         msg.member.kick();
@@ -219,12 +215,32 @@ client.on('message', msg => {
   // Commands (Soon this will be a different thing )
 
   // My ID. So it only does things when i ask it too
-  if (msg.author.id === "326743504443146241"){
+  if (msg.author.id === "326743504443146241" ){
+    var arg = null
 
-    if (msg.content === "jBot: save"){
-      msg.channel.send("Saving users file")
-      saveToFiles()
+    if(msg.content.substring(0,5) == "jbot:"){
+      console.log("Command")
+      var command = msg.content.split(' ')[1]
+      arg = msg.content.split(' ')[2]
+
+      if(command === "save"){
+        msg.channel.send("saving users to file")
+        saveToFiles()
+      }
+
+      if(command === "kick"){
+        var member= msg.mentions.members.first();
+        try{
+          member.kick()
+        }catch{
+          msg.channel.send("Could not kick user")
+        }
+
+
+      }
     }
+
+
 
 
 
