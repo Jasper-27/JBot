@@ -15,6 +15,7 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Replies "General Kenobi" to the message "Hello There"
 - Kicks and messages user if they spam the message "Nice"
 - Reacts with a 🤮 when a user's message contains the word "uwu"
+- List "nice" scores
 - Commands  
   + jbot: kick @user
   + jbot: save
@@ -23,9 +24,8 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 ### Features I want to implement
 
 - Vote to kick
-- List "nice" scores
 - Roles based on participation
-- add an update feature (Can run a command and it will get itself from GitHub)
+- Add an update feature (Can run a command and it will get itself from GitHub)
 - Kick user using using a command
 - Black list feature: Add a user to a blacklist if they spam (as well as block)
 
