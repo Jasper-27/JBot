@@ -4,7 +4,8 @@
   "description": "A discord bot written in nodeJS",
   "main": "main.js",
   "dependencies": {
-    "discord.js": "^12.2.0"
+    "discord.js": "^12.2.0",
+    "sort-array": "^4.1.1"
   },
   "devDependencies": {},
   "scripts": {
