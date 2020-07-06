@@ -152,7 +152,7 @@ console.log(`logged in as ${client.user.tag}!`)
 
 //Sets the bots username and activity
 client.user.setUsername('jBot');
-client.user.setActivity('with yo mama');
+client.user.setActivity('with your mama');
 //client.user.setActivity('discord.js', { type: 'RUNNING' })  //the type is wrong
 
 })
