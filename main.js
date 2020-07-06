@@ -145,9 +145,15 @@ client.on('ready', () => {
 
 console.log(`logged in as ${client.user.tag}!`)
 
+
+
+// Does this but work? Well at some point it did 
+
+
 //Sets the bots username and activity
 client.user.setUsername('jBot');
-client.user.setActivity('Doing bot things');
+client.user.setActivity('with yo mama');
+//client.user.setActivity('discord.js', { type: 'RUNNING' })  //the type is wrong
 
 })
 
@@ -199,11 +205,12 @@ client.on('message', msg => {
 
 Write a routine that finds each users position individually. Much better and more reusable. 
 */
-  if (msg.content.toLowerCase() === "nice rankings"){
+  if (msg.content.toLowerCase() === "nr"){
 
+    //Sorts array
     sortArray(users, {
-      by: 'NC',
-      order: 'desc'
+      by: 'NC'
+      ,order: 'desc'  // In descending order (coma there for commenting)
     })
 
     users.forEach((item, i) => {
@@ -231,7 +238,7 @@ Write a routine that finds each users position individually. Much better and mor
 
   if (msg.content.toLowerCase().includes("uwu")){
     msg.react('🤮')
-    msg.author.send('Fuck you');
+    msg.author.send('Go uwu somewhere else');
   }
 
   // Commands (Soon this will be a different thing )
