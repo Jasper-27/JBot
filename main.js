@@ -139,6 +139,26 @@ function niceCode(msg){
 
 }
 
+function rankings(msg){
+  console.log(msg.content)
+
+  sortArray(users, {
+    by: 'NC'
+    ,order: 'desc'  // In descending order (coma there for commenting)
+  })
+
+  var loops = users.length
+
+  if (users.length > 10){
+    loops = 10
+  }
+
+  for (let i = 0; i < 9; i++) {
+    msg.channel.send(users[i].UName + " \n "+ "Hello")
+  }
+
+ 
+}
 
 //When the client connects
 client.on('ready', () => {
@@ -198,6 +218,10 @@ client.on('message', msg => {
     msg.channel.send('General Kenobi! You are a bold one');
   }
 
+
+  if (msg.content.toLowerCase() == "nor"){
+    rankings(msg)
+  }
 
 /*
  this bit is broken. Takes ages and too large a group will fuck it.
