@@ -14,6 +14,11 @@ const client = new Discord.Client()
 const channel = client.channels.cache.get('644539373077004299')
 const sortArray = require('sort-array')
 
+// 5 mins, 60 seconds in a min, 1000 ms in a second
+const saveTime = 5 * 60 * 1000; /* ms */
+
+const RNCCap = 6
+
 
 //https://discord.com/oauth2/authorize?client_id=717442260131774485&scope=bot
 // The token
@@ -28,9 +33,6 @@ client.login(token)
 
 var lastTime = null  // Used to check the time between "Nice" messages
 
-// 5 mins, 60 seconds in a min, 1000 ms in a second
-var saveTime = 5 * 60 * 1000; /* ms */
-
 
 class user {
   ID
@@ -42,7 +44,7 @@ class user {
 
 
 
-
+//Reads the userfile, or creates it if it doesn't exist
 if (fs.existsSync('users.json')) {
   var userFile = 'users.json'
 
@@ -107,7 +109,7 @@ function niceCode(msg){
 
 
     // The try is not working. Not sure why
-    if (users[theUserIndex].RNC > 6){
+    if (users[theUserIndex].RNC > RNCCap){
       try {
         users[theUserIndex].NC = 0;
         msg.channel.send("Kicking user: " + msg.author.username + ", for spamming");
@@ -150,7 +152,7 @@ function rankings(msg){
   var loops = users.length
 
   if (users.length > 10){
-    loops = 9
+    loops = 10
   }
 
 
@@ -170,17 +172,17 @@ function rankings(msg){
 //When the client connects
 client.on('ready', () => {
 
-console.log(`logged in as ${client.user.tag}!`)
+  console.log(`logged in as ${client.user.tag}!`)
 
 
 
-// Does this but work? Well at some point it did 
+  // Does this but work? Well at some point it did 
 
 
-//Sets the bots username and activity
-client.user.setUsername('jBot');
-client.user.setActivity('with your mama');
-//client.user.setActivity('discord.js', { type: 'RUNNING' })  //the type is wrong
+  //Sets the bots username and activity
+  client.user.setUsername('jBot');
+  client.user.setActivity('with your mama');
+  //client.user.setActivity('discord.js', { type: 'RUNNING' })  //the type is wrong
 
 })
 
