@@ -150,12 +150,19 @@ function rankings(msg){
   var loops = users.length
 
   if (users.length > 10){
-    loops = 10
+    loops = 9
   }
 
-  for (let i = 0; i < 9; i++) {
-    msg.channel.send(users[i].UName + " \n "+ "Hello")
+
+  var message = " "
+
+  for (let i = 0; i < loops; i++) {
+
+    message = message + (i+1) + ") " + users[i].UName + ":  " + users[i].NC  + " \n "
+    //msg.channel.send(users[i].UName + " \n "+ "Hello")
   }
+
+  msg.channel.send(message)
 
  
 }
@@ -219,8 +226,9 @@ client.on('message', msg => {
   }
 
 
-  if (msg.content.toLowerCase() == "nor"){
+  if (msg.content.toLowerCase() == "list scores"){
     rankings(msg)
+
   }
 
 /*
@@ -229,6 +237,8 @@ client.on('message', msg => {
 
 Write a routine that finds each users position individually. Much better and more reusable. 
 */
+
+/*
   if (msg.content.toLowerCase() === "nr"){
 
     //Sorts array
@@ -245,7 +255,7 @@ Write a routine that finds each users position individually. Much better and mor
 
   }
 
-
+*/
 
   var now = new Date();
   now = now - 0 // makes now a number. Don't ask why
@@ -292,17 +302,7 @@ Write a routine that finds each users position individually. Much better and mor
 
       }
     }
-
-
-
-
-
-
   }
-
-
-
-
 })
 
 // Checks to see if the userID is in the array of allready created users
