@@ -330,7 +330,7 @@ function clearRN(){
 }
 
 
-setInterval(clearRN, (5 * 60 * 1000));   //Runs the clear nice function every 2 mins
+setInterval(clearRN, (5 * 60 * 1000));   //Runs the clear nice function every 5 mins
 
 
 //Says when it disconnects
