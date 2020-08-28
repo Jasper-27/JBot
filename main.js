@@ -14,6 +14,9 @@ const client = new Discord.Client()
 const channel = client.channels.cache.get('644539373077004299')
 const sortArray = require('sort-array')
 
+
+const { exec } = require("child_process");
+
 // 5 mins, 60 seconds in a min, 1000 ms in a second
 const saveTime = 5 * 60 * 1000; /* ms */
 
@@ -141,6 +144,23 @@ function niceCode(msg){
 
 }
 
+function fortuneCode(msg){
+  exec("fortune", (error, stdout, stderr) => {
+    if (error) {
+        //console.log(`error: ${error.message}`);
+        msg.reply("Could not run fortune")
+        return;
+    }
+    if (stderr) {
+        msg.reply(`There was an error: ${stderr}`)
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+    msg.reply(`${stdout}`);
+});
+
+}
+
 function rankings(msg){
   console.log(msg.content)
 
@@ -230,6 +250,12 @@ client.on('message', msg => {
 
   if (msg.content.toLowerCase() == "list scores"){
     rankings(msg)
+
+  }
+
+  if (msg.content.toLowerCase() === 'fortune'){
+
+    fortuneCode(msg)
 
   }
 

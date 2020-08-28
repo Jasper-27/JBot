@@ -6,6 +6,9 @@
 - Discord.js  
 - sort-array
 
+### Optional Dependencies
+- Fortune  
+
 ### Purpose
 
 I made this Discord bot purely for fun. I have it running on a very old Intel Atom PC at my house. I have put the code online in case anyone has any suggestions, or wants a base for a similar project.
@@ -28,6 +31,7 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Add an update feature (Can run a command and it will get itself from GitHub)
 - Kick user using using a command
 - Black list feature: Add a user to a blacklist if they spam (as well as block)
+- Print a fortune 
 
 
 ### Issues
