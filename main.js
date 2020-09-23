@@ -296,10 +296,7 @@ client.on('message', msg => {
       if (msg.content.toLowerCase() == 'neofetch'){
         neofetchCode(msg)
       }
-
-      if (msg.content.toLowerCase() == "fuck you <@!717442260131774485>"){
-      msg.channel.send("Fuck you " + msg.author.username )
-      }
+      
 
       //The Nice count code
       if (msg.content.toLowerCase() === 'nice'){
@@ -316,7 +313,9 @@ client.on('message', msg => {
 
 
 
-
+  if (msg.content.toLowerCase() == "fuck you <@!" + client.user.id + ">"){
+    msg.channel.send("Fuck you " + msg.author.username )
+  }
  
 
 
