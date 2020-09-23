@@ -6,12 +6,12 @@ To get this program to work you need two files
 
 */
 
-
+//https://discord.com/api/oauth2/authorize?client_id= 758403936784482315&scope=bot&permissions=1
 
 const Discord = require('discord.js')
 const fs = require('fs');
 const client = new Discord.Client()
-const channel = client.channels.cache.get('644539373077004299')
+//const channel = client.channels.cache.get('644539373077004299')
 const sortArray = require('sort-array')
 
 //Allows exectuing programs on the server
@@ -24,7 +24,6 @@ const SpamCap = 6
 
 
 //https://discord.com/oauth2/authorize?client_id=717442260131774485&scope=bot
-// The token
 
 
 var token = fs.readFileSync('token.txt',{encoding:'utf8', flag:'r'});
@@ -67,14 +66,13 @@ let users = JSON.parse(rawdata);
 //Shows all the users in the array
 console.log(users)
 
+//Saves the users stats to the json files
 function saveToFiles(){
   console.log("Saving users to file")
   console.log(users)
   fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
 }
-
-
-
+//runs fortune on the sever. the program must be insgtalled 
 function fortuneCode(msg){
   exec("fortune", (error, stdout, stderr) => {
     if (error) {
@@ -91,7 +89,7 @@ function fortuneCode(msg){
   });
 
 }
-
+//Runs neofetch on the server. The program must be installed 
 function neofetchCode(msg){
   exec("neofetch --stdout", (error, stdout, stderr) => {
     if (error) {
@@ -108,7 +106,7 @@ function neofetchCode(msg){
   });
 
 }
-
+//Gets the ranking for the nice count
 function rankings(msg){
   console.log(msg.content)
 
@@ -137,44 +135,81 @@ function rankings(msg){
  
 }
 
+// Checks to see if the userID is in the array of allready created users
+function findUsers(userID){
+  var user = null;
+  users.forEach((item, i) => {
+
+    if (item.ID === userID){
+      user = i;
+    }
+  });
+
+  return user;  // Returns null if the user was not found
+}
+
+
+
+
+
+
+
+
+
+
 //When the client connects
 client.on('ready', () => {
 
   console.log(`logged in as ${client.user.tag}!`)
 
-
+  console.log(client.user.id)
 
   // Does this  work? Well at some point it did 
 
 
   //Sets the bots username and activity
   client.user.setUsername('jBot');
-  client.user.setActivity('with your mama');
-  //client.user.setActivity('discord.js', { type: 'RUNNING' })  //the type is wrong
+  //client.user.setActivity(':-)');
+  client.user.setActivity('You sleep', { type: 'WATCHING' });
+
+  
 
 })
 
-/*  Commented out because it is not working
-
-
-//When a new user is added to the discord
-client.on('guildMemberAdd', member => {
-  console.log("New member was added")
-  // Send the message to a designated channel on a server:
-  channel = member.guild.channels.cache.find(ch => ch.name === 'general');
-  // Do nothing if the channel wasn't found on this server
-  if (!channel) return;
-  // Send the message, mentioning the member
-  channel.send(`Welcome to the server, ${member}`);
-});
-
-*/
 
 
 
 //Runs when the message is read
 client.on('message', msg => {
 
+
+  // Commands (Soon this will be a different thing )
+  if (msg.author.id === "326743504443146241" ){  // My ID. So it only does things when i ask it too
+    var arg = null
+
+    if(msg.content.substring(0,5) == "jbot:"){
+      console.log("Command")
+      var command = msg.content.split(' ')[1]
+      arg = msg.content.split(' ')[2]
+
+      if(command === "save"){
+        msg.channel.send("saving users to file")
+        saveToFiles()
+      }
+
+      if(command === "kick"){
+        var member= msg.mentions.members.first();
+        try{
+          member.kick()
+        }catch{
+          msg.channel.send("Could not kick user")
+        }
+      }
+
+      
+
+    }
+  }
 
 
 
@@ -196,7 +231,7 @@ client.on('message', msg => {
     try{
       theUserIndex = findUsers(msg.member.id)
     }catch{
-      
+      console.log("The user was not found")
     }
 
     if (theUserIndex == null){
@@ -282,39 +317,7 @@ client.on('message', msg => {
 
 
 
-  console.log(msg.author.username + " : " + msg.content)
-
-
-
-
-/*
- this bit is broken. Takes ages and too large a group will fuck it.
-
-
-Write a routine that finds each users position individually. Much better and more reusable. 
-*/
-
-/*
-  if (msg.content.toLowerCase() === "nr"){
-
-    //Sorts array
-    sortArray(users, {
-      by: 'NC'
-      ,order: 'desc'  // In descending order (coma there for commenting)
-    })
-
-    users.forEach((item, i) => {
-
-      msg.channel.send(item.UName + ": " + item.NC)
-    });
-
-
-  }
-
-*/
-
-
-
+ 
 
 
 
@@ -323,53 +326,9 @@ Write a routine that finds each users position individually. Much better and mor
     msg.author.send('Go uwu somewhere else');
   }
 
-
-
-  
-
-  // Commands (Soon this will be a different thing )
-
-  // My ID. So it only does things when i ask it too
-  if (msg.author.id === "326743504443146241" ){
-    var arg = null
-
-    if(msg.content.substring(0,5) == "jbot:"){
-      console.log("Command")
-      var command = msg.content.split(' ')[1]
-      arg = msg.content.split(' ')[2]
-
-      if(command === "save"){
-        msg.channel.send("saving users to file")
-        saveToFiles()
-      }
-
-      if(command === "kick"){
-        var member= msg.mentions.members.first();
-        try{
-          member.kick()
-        }catch{
-          msg.channel.send("Could not kick user")
-        }
-      }
-
-      
-
-    }
-  }
+  //Prints message to terminal for debugging. This is a bit of a security issue if someone has access to the server. 
+  console.log(msg.author.username + " : " + msg.content)
 })
-
-// Checks to see if the userID is in the array of allready created users
-function findUsers(userID){
-  var user = null;
-  users.forEach((item, i) => {
-
-    if (item.ID === userID){
-      user = i;
-    }
-  });
-
-  return user;  // Returns null if the user was not found
-}
 
 // clears the recent nice count of all the users
 function clearRN(){
