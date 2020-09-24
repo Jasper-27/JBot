@@ -43,7 +43,7 @@ class user {
   RNC
 }
 
-var keywords = ["nice", "fortune", "hello there", "ping", "marco", "marco!", "list scores", "fuck you <@!717442260131774485>", "neofetch"]
+var keywords = ["nice", "fortune", "hello there", "ping", "marco", "marco!", "list scores", "neofetch"]
 
 
 //Reads the userfile, or creates it if it doesn't exist
@@ -72,6 +72,7 @@ function saveToFiles(){
   console.log(users)
   fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
 }
+
 //runs fortune on the sever. the program must be insgtalled 
 function fortuneCode(msg){
   exec("fortune", (error, stdout, stderr) => {
@@ -85,10 +86,11 @@ function fortuneCode(msg){
         console.log(`stderr: ${stderr}`);
         return;
     }
-    msg.reply(`${stdout}`);
+    msg.channel.send(`${stdout}`);
   });
 
 }
+
 //Runs neofetch on the server. The program must be installed 
 function neofetchCode(msg){
   exec("neofetch --stdout", (error, stdout, stderr) => {
@@ -106,6 +108,7 @@ function neofetchCode(msg){
   });
 
 }
+
 //Gets the ranking for the nice count
 function rankings(msg){
   console.log(msg.content)
@@ -148,8 +151,16 @@ function findUsers(userID){
   return user;  // Returns null if the user was not found
 }
 
+// clears the recent nice count of all the users
+function clearRN(){
 
+  users.forEach((item, i) => {
+    item.RNC = 0
+  });
 
+  console.log("Cleared recent nice count");
+
+}
 
 
 
@@ -206,7 +217,6 @@ client.on('message', msg => {
         }
       }
 
-      
 
     }
   }
@@ -305,19 +315,19 @@ client.on('message', msg => {
         //niceCode(msg)
       }
 
+
+    
       var now = new Date();
       now = now - 0 // makes now a number. Don't ask why
 
     }
   } 
 
-
-
+  //These commands do not fall under the spam filter. This means people will not be penilised for using them 
+  
   if (msg.content.toLowerCase() == "fuck you <@!" + client.user.id + ">"){
     msg.channel.send("Fuck you " + msg.author.username )
   }
- 
-
 
 
   if (msg.content.toLowerCase().includes("uwu")){
@@ -329,16 +339,6 @@ client.on('message', msg => {
   console.log(msg.author.username + " : " + msg.content)
 })
 
-// clears the recent nice count of all the users
-function clearRN(){
-
-  users.forEach((item, i) => {
-    item.RNC = 0
-  });
-
-  console.log("Cleared recent nice count");
-
-}
 
 // hour * min * sec * ms
 setInterval(clearRN, (60 * 60 * 1000));   //Runs the clear nice function every time interval 
