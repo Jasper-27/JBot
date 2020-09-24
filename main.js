@@ -301,7 +301,7 @@ client.on('message', msg => {
           rankings(msg)
         }
 
-        if (msg.content.toLowerCase() == 'fortune'){
+        if (msg.content.toLowerCase() == '/usr/games/fortune'){
           fortuneCode(msg)
         }
 
