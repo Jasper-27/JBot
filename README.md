@@ -44,3 +44,4 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Errors out when kicking some people
 - very slow. Need to slim down
 - I need to introduce some proper error logging 
+- I have not used full paths. So this means working direcotory must be specified by the user
