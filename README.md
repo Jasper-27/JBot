@@ -35,6 +35,7 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Add an update feature (Can run a command and it will get itself from GitHub)
 - Kick user using using a command (The basics are there but it needs fixing)
 - Black list feature: Add a user to a blacklist if they spam (as well as block)
+- instead of fortune, it would be cool if the user could add quotes to a list. 
 
 
 ### Issues
