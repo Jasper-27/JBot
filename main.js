@@ -273,6 +273,8 @@ client.on('message', msg => {
         users.push(newUser)
         console.log(newUser)
         msg.channel.send("This is " + msg.member.user.username + "'s first use of the jBot ");
+
+        theUserIndex = findUsers(msg.member.id)
     
       }else{
         users[theUserIndex].RNC++
