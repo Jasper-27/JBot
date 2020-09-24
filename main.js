@@ -76,14 +76,29 @@ function saveToFiles(){
 
 //runs fortune on the sever. the program must be insgtalled 
 function fortuneCode(msg){
-  exec("fortune", (error, stdout, stderr) => {
+  exec("/usr/games/fortune", (error, stdout, stderr) => {
     if (error) {
-        //console.log(`error: ${error.message}`);
-        msg.reply("Could not run fortune")
-        return;
+      //console.log(`error: ${error.message}`);
+      //msg.reply("Could not run fortune")
+       
+      // On MacOS (as an example) fortune is stored somewhere stupid
+      exec("fortune", (error, stdout, stderr) => {
+        if (error) {
+          //console.log(`error: ${error.message}`);
+          msg.reply("Could not run fortune")
+
+        }
+        if (stderr) {
+            //msg.reply(`There was an error: ${stderr}`)
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        msg.channel.send(`${stdout}`);
+      });
+
     }
     if (stderr) {
-        msg.reply(`There was an error: ${stderr}`)
+        //msg.reply(`There was an error: ${stderr}`)
         console.log(`stderr: ${stderr}`);
         return;
     }
@@ -282,46 +297,48 @@ client.on('message', msg => {
         if (users[theUserIndex].RNC > SpamCap){
           return 
         }
-
-        //The message replies 
-        if (msg.content === 'ping') {
-          msg.reply('Pong!');
-        }
-
-        if (msg.content.toLowerCase() === 'marco' || msg.content.toLowerCase() === 'marco!' ){
-          msg.reply("Polo!")
-        }
-
-        if (msg.content.toLowerCase() === 'hello there') {
-          msg.channel.send('General Kenobi! You are a bold one');
-        }
+      }
 
 
-        if (msg.content.toLowerCase() == "list scores"){
-          rankings(msg)
-        }
 
-        if (msg.content.toLowerCase() == '/usr/games/fortune'){
-          fortuneCode(msg)
-        }
+      //The message replies 
+      if (msg.content === 'ping') {
+        msg.reply('Pong!');
+      }
 
-        if (msg.content.toLowerCase() == 'neofetch'){
-          neofetchCode(msg)
-        }
+      if (msg.content.toLowerCase() === 'marco' || msg.content.toLowerCase() === 'marco!' ){
+        msg.reply("Polo!")
+      }
+
+      if (msg.content.toLowerCase() === 'hello there') {
+        msg.channel.send('General Kenobi! You are a bold one');
+      }
+
+
+      if (msg.content.toLowerCase() == "list scores"){
+        rankings(msg)
+      }
+
+      if (msg.content.toLowerCase() == 'fortune'){
+        fortuneCode(msg)
+      }
+
+      if (msg.content.toLowerCase() == 'neofetch'){
+        neofetchCode(msg)
+      }
         
 
-        //The Nice count code
-        if (msg.content.toLowerCase() === 'nice'){
-          msg.channel.send(msg.member.user.username + "'s \"Nice\" count has gone up to " + users[theUserIndex].NC)
-          users[theUserIndex].NC++
-          //niceCode(msg)
-        }
+      //The Nice count code
+      if (msg.content.toLowerCase() === 'nice'){
+        users[theUserIndex].NC++
+        msg.channel.send(msg.member.user.username + "'s \"Nice\" count has gone up to " + users[theUserIndex].NC)
+      }
 
 
       
-        var now = new Date();
-        now = now - 0 // makes now a number. Don't ask why
-      }
+      var now = new Date();
+      now = now - 0 // makes now a number. Don't ask why
+      
     } catch{
       console.log("error")
     }
