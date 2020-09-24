@@ -27,6 +27,7 @@ const SpamCap = 6
 
 
 var token = fs.readFileSync('token.txt',{encoding:'utf8', flag:'r'});
+var theUserIndex = null
 token = token.replace(/(\r\n|\n|\r)/gm, ""); //Removes the newline from the token file
 client.login(token)
 
@@ -193,7 +194,7 @@ client.on('ready', () => {
 //Runs when the message is read
 client.on('message', msg => {
 
-
+  
   // Commands (Soon this will be a different thing )
   if (msg.author.id === "326743504443146241" ){  // My ID. So it only does things when i ask it too
     var arg = null
@@ -244,84 +245,89 @@ client.on('message', msg => {
       console.log("The user was not found")
     }
 
-    if (theUserIndex == null){
 
-      //Creates a new user with basic entry in the json file
-      console.log("New user: " + msg.member.id)
-      newUser = {ID:msg.member.id, UName:msg.author.username, NC: 0, RNC: 0,}
-      users.push(newUser)
-      console.log(newUser)
-      msg.channel.send("This is " + msg.member.user.username + "'s first use of the jBot ");
+    //You need this try because if you dm the bot. Lots of bad stuff happen otherwise 
+    try {
+        
   
-    }else{
-      users[theUserIndex].RNC++
-      console.log(msg.member.user.username + "'s spam count has gone up to " + users[theUserIndex].RNC)
-      
+      if (theUserIndex == null){
 
-      if (users[theUserIndex].RNC > 3){
-        msg.reply("Watch it sunshine")
-  
-      }
-  
-      // The kicking can cause an error. Not an issue now but soon will cause the app to crash
-      // I can't find a work around at the moment
-  
-      // The try is not working. Not sure why
-      if (users[theUserIndex].RNC > SpamCap){
-        try {
-          users[theUserIndex].NC = 0;
-          msg.channel.send("Kicking user: " + msg.author.username + ", for spamming");
-          msg.author.send("Don't spam. It is just annoying and gets you kicked");
-          msg.member.kick();
-        }catch(err){
-          msg.channel.send("Could not kick user. You got lucky this time")
-          console.log("Could not kick user")
-          console.log(err)
+        //Creates a new user with basic entry in the json file
+        console.log("New user: " + msg.member.id)
+        newUser = {ID:msg.member.id, UName:msg.author.username, NC: 0, RNC: 0,}
+        users.push(newUser)
+        console.log(newUser)
+        msg.channel.send("This is " + msg.member.user.username + "'s first use of the jBot ");
+    
+      }else{
+        users[theUserIndex].RNC++
+        console.log(msg.member.user.username + "'s spam count has gone up to " + users[theUserIndex].RNC)
+        
+
+        if (users[theUserIndex].RNC == 3){
+          msg.author.send("Please don't use the bot to spam the server. It is just annoying.")
+        }else if (users[theUserIndex].RNC === SpamCap){
+          msg.author.send("You have been temporarily blocked from running jBot commands. ")
+          msg.reply("You have been blocked from running jBot commands temporarily ")
+          return
+        }else if(users[theUserIndex].RNC > SpamCap){
+          return
         }
-  
-      }
-
-      //The message replies 
-      if (msg.content === 'ping') {
-        msg.reply('Pong!');
-      }
-
-      if (msg.content.toLowerCase() === 'marco' || msg.content.toLowerCase() === 'marco!' ){
-        msg.reply("Polo!")
-      }
-
-      if (msg.content.toLowerCase() === 'hello there') {
-        msg.channel.send('General Kenobi! You are a bold one');
-      }
-
-
-      if (msg.content.toLowerCase() == "list scores"){
-        rankings(msg)
-      }
-
-      if (msg.content.toLowerCase() == 'fortune'){
-        fortuneCode(msg)
-      }
-
-      if (msg.content.toLowerCase() == 'neofetch'){
-        neofetchCode(msg)
-      }
-      
-
-      //The Nice count code
-      if (msg.content.toLowerCase() === 'nice'){
-        msg.channel.send(msg.member.user.username + "'s \"Nice\" count has gone up to " + users[theUserIndex].NC)
-        users[theUserIndex].NC++
-        //niceCode(msg)
-      }
-
 
     
-      var now = new Date();
-      now = now - 0 // makes now a number. Don't ask why
+        // The kicking can cause an error. Not an issue now but soon will cause the app to crash
+        // I can't find a work around at the moment
+    
+        // The try is not working. Not sure why
+        if (users[theUserIndex].RNC > SpamCap){
+          return 
+        }
 
+        //The message replies 
+        if (msg.content === 'ping') {
+          msg.reply('Pong!');
+        }
+
+        if (msg.content.toLowerCase() === 'marco' || msg.content.toLowerCase() === 'marco!' ){
+          msg.reply("Polo!")
+        }
+
+        if (msg.content.toLowerCase() === 'hello there') {
+          msg.channel.send('General Kenobi! You are a bold one');
+        }
+
+
+        if (msg.content.toLowerCase() == "list scores"){
+          rankings(msg)
+        }
+
+        if (msg.content.toLowerCase() == 'fortune'){
+          fortuneCode(msg)
+        }
+
+        if (msg.content.toLowerCase() == 'neofetch'){
+          neofetchCode(msg)
+        }
+        
+
+        //The Nice count code
+        if (msg.content.toLowerCase() === 'nice'){
+          msg.channel.send(msg.member.user.username + "'s \"Nice\" count has gone up to " + users[theUserIndex].NC)
+          users[theUserIndex].NC++
+          //niceCode(msg)
+        }
+
+
+      
+        var now = new Date();
+        now = now - 0 // makes now a number. Don't ask why
+      }
+    } catch{
+      console.log("error")
     }
-  } 
+  }
+
+  
 
   //These commands do not fall under the spam filter. This means people will not be penilised for using them 
   
