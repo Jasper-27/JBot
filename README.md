@@ -8,6 +8,7 @@
 
 ### Optional Dependencies
 - Fortune  
+- neofetch
 
 ### Purpose
 
@@ -19,9 +20,12 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Kicks and messages user if they spam the message "Nice"
 - Reacts with a 🤮 when a user's message contains the word "uwu"
 - List "nice" scores
+- outputs the result of fortune
+- can run neofetch on the server, showing the user what hardware is being used to host the bot. 
 - Commands  
   + jbot: kick @user
   + jbot: save
+
 
 
 ### Features I want to implement
@@ -29,14 +33,12 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Vote to kick
 - Roles based on participation
 - Add an update feature (Can run a command and it will get itself from GitHub)
-- Kick user using using a command
+- Kick user using using a command (The basics are there but it needs fixing)
 - Black list feature: Add a user to a blacklist if they spam (as well as block)
-- Print a fortune 
 
 
 ### Issues
 - Large groups will be to much for the "nice rankings". Need to rewrite that sections finding each users position and outputting top 10
 - Kicking people out of servers is a bit much. Maybe a block list would work better
 - Errors out when kicking some people
-- "playing" bot things
 - very slow. Need to slim down
