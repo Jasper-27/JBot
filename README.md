@@ -43,3 +43,4 @@ I made this Discord bot purely for fun. I have it running on a very old Intel At
 - Kicking people out of servers is a bit much. Maybe a block list would work better
 - Errors out when kicking some people
 - very slow. Need to slim down
+- I need to introduce some proper error logging 
