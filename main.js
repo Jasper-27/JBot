@@ -44,7 +44,15 @@ class user {
   RNC
 }
 
-var keywords = ["nice", "fortune", "hello there", "ping", "marco", "marco!", "list scores", "neofetch"]
+var keywords = [
+ "nice", 
+ "fortune",
+ "hello there", 
+ "ping", 
+ "marco", 
+ "marco!", 
+ "list scores", 
+ "neofetch"]
 
 
 //Reads the userfile, or creates it if it doesn't exist
@@ -211,7 +219,7 @@ client.on('message', msg => {
 
   
   // Commands (Soon this will be a different thing )
-  if (msg.author.id === "326743504443146241" ){  // My ID. So it only does things when i ask it too
+  if (msg.author.id === "326743504443146241" ){  // My ID.
     var arg = null
 
     if(msg.content.substring(0,5) == "jbot:"){
@@ -261,7 +269,8 @@ client.on('message', msg => {
     }
 
 
-    //You need this try because if you dm the bot. Lots of bad stuff happen otherwise 
+    //This try stops the code from crashing if it cant find a user
+    // This happens when you DM the bot
     try {
         
   
@@ -333,7 +342,7 @@ client.on('message', msg => {
       //The Nice count code
       if (msg.content.toLowerCase() === 'nice'){
         users[theUserIndex].NC++
-        msg.channel.send(msg.member.user.username + "'s \"Nice\" count has gone up to " + users[theUserIndex].NC)
+        msg.channel.send(msg.member.user.username + "'s \"Nice\" count = " + users[theUserIndex].NC)
       }
 
 
@@ -348,7 +357,8 @@ client.on('message', msg => {
 
   
 
-  //These commands do not fall under the spam filter. This means people will not be penilised for using them 
+  //These commands do not fall under the spam filter. 
+  //This means people will not be penilised for using them 
   
   if (msg.content.toLowerCase() == "fuck you <@!" + client.user.id + ">"){
     msg.channel.send("Fuck you " + msg.author.username )
@@ -360,7 +370,7 @@ client.on('message', msg => {
     msg.author.send('Go uwu somewhere else');
   }
 
-  //Prints message to terminal for debugging. This is a bit of a security issue if someone has access to the server. 
+  //Prints message to terminal for debugging.
   console.log(msg.author.username + " : " + msg.content)
 })
 
