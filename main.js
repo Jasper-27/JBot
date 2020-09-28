@@ -222,6 +222,8 @@ client.on('message', msg => {
   if (msg.author.id === "326743504443146241" ){  // My ID.
     var arg = null
 
+
+
     if(msg.content.substring(0,5) == "jbot:"){
       console.log("Command")
       var command = msg.content.split(' ')[1]
@@ -241,7 +243,7 @@ client.on('message', msg => {
         }
       }
 
-      if (command === "reset-spam"){
+      if (command === "reset"){
         msg.channel.send("Clearing spamCount")
         clearRN()
       }
@@ -358,6 +360,13 @@ client.on('message', msg => {
     } catch{
       console.log("error")
     }
+
+    
+    //Keeps my spam count down
+    if (msg.author.id === "326743504443146241" ){
+      users[theUserIndex].RNC = 0
+    }
+    
   }
 
   
