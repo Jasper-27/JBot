@@ -241,6 +241,11 @@ client.on('message', msg => {
         }
       }
 
+      if (command === "reset-spam"){
+        msg.channel.send("Clearing spamCount")
+        clearRN()
+      }
+
 
     }
   }
