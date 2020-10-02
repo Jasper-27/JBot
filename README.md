@@ -14,7 +14,11 @@ Add to your server [here](https://discord.com/oauth2/authorize?client_id=7174422
 
 ### Purpose
 
-I made this Discord bot purely for fun. I have it running on a very old Intel Atom PC at my house. I have put the code online in case anyone has any suggestions, or wants a base for a similar project.
+I made this Discord bot purely for fun. I have put the code online in case anyone has any suggestions, or wants a base for a similar project. It has been a good little project, and has taught me a lot about JS, NodeJS, and JSON. 
+
+### What it's running on
+
+So at the moment it is running on a raspberry pi4 under my desk at my uni halls. But it used to run on a little AtomPC at my house (untill I managed to make it crash). You can check the specs of the system it is running on, by typing "neofetch" into the chat. 
 
 ### Features
 - Keeps track of how many times each user says the word "nice"
