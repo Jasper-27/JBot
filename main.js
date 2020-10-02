@@ -52,8 +52,9 @@ var keywords = [
  "marco", 
  "marco!", 
  "list scores", 
- "neofetch",
- "jbot!"
+ "jbot: neofetch",
+ "jbot!", 
+ "i love you jbot"
 ]
 
 //Reads the userfile, or creates it if it doesn't exist
@@ -341,9 +342,15 @@ client.on('message', msg => {
         fortuneCode(msg)
       }
 
-      if (msg.content.toLowerCase() == 'neofetch'){
+      if (msg.content.toLowerCase() == 'jbot: neofetch'){
         neofetchCode(msg)
       }
+      if (msg.content.toLowerCase() == 'i love you jbot'){
+        msg.react('❤️')
+        msg.channel.send("And I love you too random citizen!")
+      }
+
+     
 
       if (msg.content.toLowerCase() == 'jbot!'){
         var str = (msg.member.user.username + "!!!")
@@ -396,6 +403,11 @@ client.on('message', msg => {
   if (msg.content.toLowerCase() == "fuck you <@!" + client.user.id + ">"){
     msg.react('😡')
     msg.channel.send("Fuck you " + msg.author.username )
+  }
+
+  if (msg.content.toLowerCase() == "i love you <@!" + client.user.id + ">"){
+    msg.react('❤️')
+    msg.channel.send("And I love you too random citizen!" )
   }
 
 
