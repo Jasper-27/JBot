@@ -27,7 +27,7 @@ So at the moment it is running on a raspberry pi4 under my desk at my uni halls.
 - Reacts with a 🤮 when a user's message contains the word "uwu"
 - List "nice" scores
 - outputs the result of fortune
-- can run neofetch on the server, showing the user what hardware is being used to host the bot. 
+- can run neofetch on the server, showing the user what hardware is being used to host the bot (this is done using jbot: neofetch). 
 - Commands  
   + jbot: kick @user
   + jbot: save
