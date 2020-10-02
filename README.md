@@ -18,7 +18,7 @@ I made this Discord bot purely for fun. I have put the code online in case anyon
 
 ### What it's running on
 
-So at the moment it is running on a raspberry pi4 under my desk at my uni halls. But it used to run on a little AtomPC at my house (untill I managed to make it crash). You can check the specs of the system it is running on, by typing "neofetch" into the chat. 
+So at the moment it is running on a raspberry pi4 under my desk at my uni halls. But it used to run on a little AtomPC at my house (untill I managed to make it crash). You can check the specs of the system it is running on, by typing "jbot: neofetch" into the chat. 
 
 ### Features
 - Keeps track of how many times each user says the word "nice"

@@ -54,7 +54,7 @@ var keywords = [
  "list scores", 
  "jbot: neofetch",
  "jbot!", 
- "i love you jbot"
+ "i love you jbot", 
 ]
 
 //Reads the userfile, or creates it if it doesn't exist
@@ -349,6 +349,8 @@ client.on('message', msg => {
         msg.react('❤️')
         msg.channel.send("And I love you too random citizen!")
       }
+
+      
 
      
 
