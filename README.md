@@ -1,5 +1,7 @@
 # JBot
  A simple Discord bot I made using Discord.js
+ 
+Add to your server [here](https://discord.com/oauth2/authorize?client_id=717442260131774485&scope=bot&permissions=1)
 
 ### Dependencies
 - node.js
