@@ -52,8 +52,9 @@ var keywords = [
  "marco", 
  "marco!", 
  "list scores", 
- "neofetch"]
-
+ "neofetch",
+ "jbot!"
+]
 
 //Reads the userfile, or creates it if it doesn't exist
 if (fs.existsSync('users.json')) {
@@ -248,7 +249,6 @@ client.on('message', msg => {
         clearRN()
       }
 
-
     }
   }
 
@@ -344,6 +344,12 @@ client.on('message', msg => {
       if (msg.content.toLowerCase() == 'neofetch'){
         neofetchCode(msg)
       }
+
+      if (msg.content.toLowerCase() == 'jbot!'){
+        var str = (msg.member.user.username + "!!!")
+        var str = str.toUpperCase(); 
+        msg.channel.send(str)
+      }
         
 
       //The Nice count code
@@ -376,6 +382,9 @@ client.on('message', msg => {
     if (msg.author.id === "326743504443146241" ){
       users[theUserIndex].RNC = 0
     }
+
+    
+    
     
   }
 
@@ -389,10 +398,15 @@ client.on('message', msg => {
   }
 
 
+  //Reactions 
   if (msg.content.toLowerCase().includes("uwu")){
     msg.react('🤮')
     msg.author.send('Go uwu somewhere else');
   }
+
+  
+
+
 
   //Prints message to terminal for debugging.
   console.log(msg.author.username + " : " + msg.content)
