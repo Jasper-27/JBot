@@ -394,6 +394,7 @@ client.on('message', msg => {
   //This means people will not be penilised for using them 
   
   if (msg.content.toLowerCase() == "fuck you <@!" + client.user.id + ">"){
+    msg.react('😡')
     msg.channel.send("Fuck you " + msg.author.username )
   }
 
@@ -402,6 +403,12 @@ client.on('message', msg => {
   if (msg.content.toLowerCase().includes("uwu")){
     msg.react('🤮')
     msg.author.send('Go uwu somewhere else');
+  }
+
+
+  if (msg.content.toLowerCase().includes("owo")){
+    msg.react('🤮')
+    msg.author.send('Go owo somewhere else');
   }
 
   
