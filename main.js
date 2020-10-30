@@ -422,13 +422,13 @@ client.on('message', msg => {
   //Reactions 
   if (msg.content.toLowerCase().includes("uwu")){
     msg.react('🤮')
-    msg.author.send('Go uwu somewhere else');
+    //msg.author.send('Go uwu somewhere else');
   }
 
 
   if (msg.content.toLowerCase().includes("owo")){
     msg.react('🤮')
-    msg.author.send('Go owo somewhere else');
+    //msg.author.send('Go owo somewhere else');
   }
 
   
