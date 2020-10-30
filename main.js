@@ -219,6 +219,12 @@ client.on('ready', () => {
 //Runs when the message is read
 client.on('message', msg => {
 
+  //Don't talk to yourself 
+  if (msg.author.id == "758403936784482315"){ //bot id
+    console.log("It's me")
+    return 0; 
+  }
+
   
   // Commands (Soon this will be a different thing )
   if (msg.author.id === "326743504443146241" ){  // My ID.
