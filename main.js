@@ -295,7 +295,7 @@ client.on('message', msg => {
         newUser = {ID:msg.member.id, UName:msg.author.username, NC: 0, RNC: 0,}
         users.push(newUser)
         console.log(newUser)
-        msg.channel.send("This is " + msg.member.user.username + "'s first use of the jBot ");
+        //msg.channel.send("This is " + msg.member.user.username + "'s first use of the jBot ");
 
         theUserIndex = findUsers(msg.member.id)
     
