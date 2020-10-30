@@ -332,7 +332,7 @@ client.on('message', msg => {
       }
 
       if (msg.content.toLowerCase() === 'marco' || msg.content.toLowerCase() === 'marco!' ){
-        msg.reply("Polo!")
+        msg.reply("DAJAGRAM!")
       }
 
       if (msg.content.toLowerCase() === 'hello there') {
