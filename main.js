@@ -434,6 +434,11 @@ client.on('message', msg => {
   
 
 
+  
+  //This is just done to wind up my friend Reece
+  if (msg.author.id === "775864318863474748"){
+    msg.react('🍆')
+  }
 
   //Prints message to terminal for debugging.
   console.log(msg.author.username + " : " + msg.content)
