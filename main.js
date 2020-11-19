@@ -435,13 +435,13 @@ client.on('message', msg => {
 
 
   
-  //This is just done to wind up my friend Reece
-  if (msg.author.id === "775864318863474748"){
+  //This is just done to wind up Reece
+  if (msg.author.id === "291990735337553922"){
     msg.react('🍆')
   }
 
   //Prints message to terminal for debugging.
-  console.log(msg.author.username + " : " + msg.content)
+  console.log(msg.author.username + " " + msg.author.id + " : " + msg.content)
 })
 
 
