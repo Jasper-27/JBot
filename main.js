@@ -11,11 +11,13 @@ To get this program to work you need two files
 const Discord = require('discord.js')
 const fs = require('fs');
 const client = new Discord.Client()
-//const channel = client.channels.cache.get('644539373077004299')
 const sortArray = require('sort-array')
+const { exec } = require("child_process");//Allows exectuing programs on the server
 
-//Allows exectuing programs on the server
-const { exec } = require("child_process");
+
+//const channel = client.channels.cache.get('644539373077004299')
+
+
 
 // 5 mins, 60 seconds in a min, 1000 ms in a second
 const saveTime = 5 * 60 * 1000; /* ms */
