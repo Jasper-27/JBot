@@ -39,12 +39,12 @@ client.login(token)
 var lastTime = null  // Used to check the time between "Nice" messages
 
 
-class user {
-  ID
-  UName
-  NC
-  RNC
-}
+// class user {
+//   ID
+//   UName
+//   NC
+//   RNC
+// }
 
 var keywords = [
  //"nice", 
