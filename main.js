@@ -47,7 +47,7 @@ class user {
 }
 
 var keywords = [
- "nice", 
+ //"nice", 
  "fortune",
  "hello there", 
  "ping", 
@@ -227,6 +227,20 @@ client.on('message', msg => {
     return 0; 
   }
 
+  //If the message contains nice
+  if (msg.content.toLowerCase().includes('nice')){
+    users[theUserIndex].NC++
+    msg.channel.send(msg.member.user.username + "'s \"Nice\" count = " + users[theUserIndex].NC)
+  
+    if (users[theUserIndex].NC == 100){
+      msg.reply("Well done on hitting a \"NICE\" score of 100" )
+    }
+
+    if (users[theUserIndex].NC == 1000){
+      msg.reply("Yeah, okay. That score is pretty impressive" )
+    }
+  }
+  
   
   // Commands (Soon this will be a different thing )
   if (msg.author.id === "326743504443146241" ){  // My ID.
