@@ -228,7 +228,7 @@ client.on('message', msg => {
   }
 
   //If the message contains nice
-  if (msg.content.toLowerCase().includes('nice')){
+  if (msg.content.toLowerCase().includes('nice') && msg.author.id != client.user.id){
     users[theUserIndex].NC++
     msg.channel.send(msg.member.user.username + "'s \"Nice\" count = " + users[theUserIndex].NC)
   
