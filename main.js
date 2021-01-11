@@ -47,7 +47,7 @@ var lastTime = null  // Used to check the time between "Nice" messages
 // }
 
 var keywords = [
- //"nice", 
+ "nice", 
  "fortune",
  "hello there", 
  "ping", 
@@ -101,7 +101,6 @@ function fortuneCode(msg){
 
         }
         if (stderr) {
-            //msg.reply(`There was an error: ${stderr}`)
             console.log(`stderr: ${stderr}`);
             return;
         }
@@ -110,7 +109,6 @@ function fortuneCode(msg){
 
     }
     if (stderr) {
-        //msg.reply(`There was an error: ${stderr}`)
         console.log(`stderr: ${stderr}`);
         return;
     }
@@ -208,7 +206,6 @@ client.on('ready', () => {
 
   //Sets the bots username and activity
   client.user.setUsername('jBot');
-  //client.user.setActivity(':-)');
   client.user.setActivity('You sleep', { type: 'WATCHING' });
 
   
@@ -227,19 +224,22 @@ client.on('message', msg => {
     return 0; 
   }
 
-  //If the message contains nice
-  if (msg.content.toLowerCase().includes('nice') && msg.author.id != client.user.id){
-    users[theUserIndex].NC++
-    msg.channel.send(msg.member.user.username + "'s \"Nice\" count = " + users[theUserIndex].NC)
-  
-    if (users[theUserIndex].NC == 100){
-      msg.reply("Well done on hitting a \"NICE\" score of 100" )
-    }
+  // This bit was very broke 
 
-    if (users[theUserIndex].NC == 1000){
-      msg.reply("Yeah, okay. That score is pretty impressive" )
-    }
-  }
+  // //If the message contains nice
+  // if (msg.content.toLowerCase().includes('nice') && msg.author.id != client.user.id){
+  //   users[theUserIndex].NC++
+  //   console.log("Someone got niced")
+  //   msg.channel.send(msg.member.user.username + "'s \"Nice\" count = " + users[theUserIndex].NC)
+  
+  //   if (users[theUserIndex].NC == 100){
+  //     msg.reply("Well done on hitting a \"NICE\" score of 100" )
+  //   }
+
+  //   if (users[theUserIndex].NC == 1000){
+  //     msg.reply("Yeah, okay. That score is pretty impressive" )
+  //   }
+  // }
   
   
   // Commands (Soon this will be a different thing )
@@ -290,7 +290,6 @@ client.on('message', msg => {
 
   //If the message is one of the keywords
   if (found === true){
-
 
     try{
       theUserIndex = findUsers(msg.member.id)
@@ -384,17 +383,17 @@ client.on('message', msg => {
         
 
       //The Nice count code
-      if (msg.content.toLowerCase() === 'nice'){
-        users[theUserIndex].NC++
-        msg.channel.send(msg.member.user.username + "'s \"Nice\" count = " + users[theUserIndex].NC)
+       if (msg.content.toLowerCase() === 'nice'){
+         users[theUserIndex].NC++
+         msg.channel.send(msg.member.user.username + "'s \"Nice\" count = " + users[theUserIndex].NC)
       
-        if (users[theUserIndex].NC == 100){
-          msg.reply("Well done on hitting a \"NICE\" score of 100" )
+         if (users[theUserIndex].NC == 100){
+           msg.reply("Well done on hitting a \"NICE\" score of 100" )
         }
 
-        if (users[theUserIndex].NC == 1000){
+         if (users[theUserIndex].NC == 1000){
           msg.reply("Yeah, okay. That score is pretty impressive" )
-        }
+         }
 
       }
 
