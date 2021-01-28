@@ -84,7 +84,7 @@ function saveToFiles(){
   fs.writeFileSync("users.json", JSON.stringify(users, null, 2));
 }
 
-//runs fortune on the sever. the program must be insgtalled 
+//runs fortune on the sever. the program must be installed 
 function fortuneCode(msg){
   exec("/usr/games/fortune", (error, stdout, stderr) => {
     if (error) {
@@ -116,6 +116,7 @@ function fortuneCode(msg){
   });
 
 }
+
 
 //Runs neofetch on the server. The program must be installed 
 function neofetchCode(msg){
@@ -430,10 +431,6 @@ client.on('message', msg => {
     msg.react('🤮')
     //msg.author.send('Go owo somewhere else');
   }
-
-  
-
-
 
   //Prints message to terminal for debugging.
   console.log(msg.author.username + " : " + msg.content)
