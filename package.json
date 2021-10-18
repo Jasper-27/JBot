@@ -1,5 +1,5 @@
 {
-  "name": "jsdiscord",
+  "name": "jbot",
   "version": "1.0.0",
   "description": "A discord bot written in nodeJS",
   "main": "main.js",
@@ -12,5 +12,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jasper Cox",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jasper-27/JBot.git"
+  },
+  "keywords": [
+    "jbot",
+    "discord",
+    "Jasper"
+  ],
+  "bugs": {
+    "url": "https://github.com/Jasper-27/JBot/issues"
+  },
+  "homepage": "https://github.com/Jasper-27/JBot#readme"
 }
