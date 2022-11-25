@@ -30,8 +30,6 @@ func main() {
 	// Setting the users hostname
 	name, _ = os.Hostname()
 
-	// Where to download files to
-
 	// Setting up the token (add the token manually here if you want it to be compiled with the code)
 	btok, _ := ioutil.ReadFile("token")
 	token := string(btok)
@@ -83,35 +81,10 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	//log of all messages sent in the chat
 	p(m.Author.Username, ": ", m.Content)
 
-	////
-	/// Replies!
-	////
+	// Handles replying to messages in a ping/pong format``
+	replies(s, m, low_content)
 
-	//Ping Pong
-	if low_content == "ping" {
-		_, err := s.ChannelMessageSend(m.ChannelID, "Pong!")
-		if err != nil {
-			fmt.Println("Error with Ping Pong")
-		}
-	}
-
-	//Kenobo
-	if low_content == "hello there" {
-		_, err := s.ChannelMessageSend(m.ChannelID, "General Kenobi! You are a bold one")
-		if err != nil {
-			fmt.Println("Error with Ping Pong")
-		}
-	}
-
-	// Marco Polo
-	if low_content == "marco" {
-		_, err := s.ChannelMessageSend(m.ChannelID, "Polo!")
-		if err != nil {
-			fmt.Println("Error with Ping Pong")
-		}
-	}
-
-	/// The Reactions!!
+	reactions(s, m, low_content)
 
 }
 
@@ -150,4 +123,57 @@ func TrimString(text string) string {
 	text = strings.ToLower(text)
 
 	return text
+}
+
+// Handles replying to messages in a ping/pong format
+func replies(s *discordgo.Session, m *discordgo.MessageCreate, low_content string) {
+	//Ping Pong
+	if low_content == "ping" {
+		_, err := s.ChannelMessageSend(m.ChannelID, "Pong!")
+		if err != nil {
+			fmt.Println("Error with Ping Pong")
+		}
+	}
+
+	//Kenobo
+	if low_content == "hello there" {
+		_, err := s.ChannelMessageSend(m.ChannelID, "General Kenobi! You are a bold one")
+
+		if err != nil {
+			fmt.Println("Error with Ping Pong")
+		}
+		err2 := s.MessageReactionAdd(m.ChannelID, m.Message.ID, "❤️")
+		if err2 != nil {
+			fmt.Println("Error with Ping Pong")
+		}
+	}
+
+	// Marco Polo
+	if low_content == "marco" {
+		_, err := s.ChannelMessageSend(m.ChannelID, "Polo!")
+		if err != nil {
+			fmt.Println("Error with Ping Pong")
+		}
+	}
+}
+
+// Function to handle reacting to messages
+func reactions(s *discordgo.Session, m *discordgo.MessageCreate, low_content string) {
+
+	//React with sick when you see an uwu
+	if strings.Contains(low_content, "uwu") {
+		err := s.MessageReactionAdd(m.ChannelID, m.Message.ID, "🤮")
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	// React with a 🍆 whenever Reece(291990735337553922) sends a message
+	if m.Author.ID == "291990735337553922" {
+		err := s.MessageReactionAdd(m.ChannelID, m.Message.ID, "🍆")
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
 }
