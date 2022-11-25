@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -9,6 +11,7 @@ import (
 	"os/signal"
 	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 	"syscall"
 
@@ -21,6 +24,15 @@ var p = fmt.Println
 
 var ID = "" // ID used for telling machines apart. Will be based on MAC address
 var name = "HOSTNAME PLACEHOLDER"
+var BotID string // The ID of this bot in discord
+
+// Used for the nice count feature
+type User struct {
+	ID string
+	NC int
+}
+
+var users []User = getUsers()
 
 func main() {
 
@@ -45,11 +57,17 @@ func main() {
 	dg.AddHandler(messageHandler)
 
 	err = dg.Open()
-
 	if err != nil {
 		p(err.Error())
 		return
 	}
+
+	// Works out the bot's ID
+	u, err := dg.User("@me")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	BotID = u.ID
 
 	p("Bot is up")
 
@@ -65,6 +83,11 @@ func main() {
 }
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
+
+	//Dont reply if the message is from the bot
+	if m.Author.ID == BotID {
+		return
+	}
 
 	// used for checking rules against
 	low_content := TrimString(m.Content)
@@ -84,7 +107,39 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// Handles replying to messages in a ping/pong format``
 	replies(s, m, low_content)
 
+	// Handles reacting to messages with emojis
 	reactions(s, m, low_content)
+
+	// The infamous nice count
+	if low_content == "nice" {
+		niceCount(s, m)
+	}
+
+}
+
+func niceCount(s *discordgo.Session, m *discordgo.MessageCreate) {
+	if user, err := findUser(users, m.Author.ID); err == nil {
+
+		// fmt.Println(users[user].ID)
+
+		users[user].NC += 1
+		if users[user].NC > 1 {
+			niceMessage := m.Author.Username + "'s \"nice\" count has gone up to " + strconv.Itoa(users[user].NC)
+
+			s.ChannelMessageSend(m.ChannelID, niceMessage)
+		} else {
+			fmt.Println("NewGuy")
+		}
+		writeUsers()
+	} else {
+		s.ChannelMessageSend(m.ChannelID, "This is the first time "+m.Author.Username+" has been logged saying \"Nice\"")
+
+		newUser := User{m.Author.ID, 1}
+
+		users = append(users, newUser)
+		writeUsers()
+
+	}
 
 }
 
@@ -176,4 +231,55 @@ func reactions(s *discordgo.Session, m *discordgo.MessageCreate, low_content str
 		}
 	}
 
+}
+
+////////////////////////////////////
+/// Nice count related function ////
+////////////////////////////////////
+
+// Write the current users to the file
+func writeUsers() {
+	out, _ := json.MarshalIndent(users, "", "  ")
+	err := ioutil.WriteFile("users.json", out, 0644)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+// Get the index of a user in the array
+func findUser(users []User, userID string) (int, error) {
+
+	for index, user := range users {
+		if user.ID == userID {
+			//fmt.Println("Found")
+
+			return index, nil
+		}
+	}
+	//err_1 := error("Not found")
+	return 0, errors.New("Not Found.")
+}
+
+// Read all the users in from the file
+func getUsers() []User {
+	fmt.Println("These are the users allready in the file")
+	fmt.Printf("\n\n")
+	content, err := ioutil.ReadFile("users.json")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	var users []User
+	err3 := json.Unmarshal(content, &users)
+	if err3 != nil {
+		fmt.Println("error with Unmarshal")
+		fmt.Println(err3.Error())
+	}
+
+	for _, x := range users {
+		fmt.Println(x.ID)
+	}
+
+	fmt.Printf("\n\n")
+	return users
 }
