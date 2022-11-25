@@ -2,3 +2,4 @@
 users.json
 package-lock.json
 token*
+*DS_Store
