@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,6 +13,7 @@ import (
 	"os/signal"
 	"regexp"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 	"syscall"
@@ -29,8 +31,9 @@ var BotID string // The ID of this bot in discord
 
 // Used for the nice count feature
 type User struct {
-	ID string
-	NC int
+	ID    string
+	UName string
+	NC    int
 }
 
 var users []User = getUsers()
@@ -116,6 +119,11 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		niceCount(s, m)
 	}
 
+	// Nice count results
+	if low_content == "nice scores" {
+		nice_scores(s, m)
+	}
+
 	// Neofetch
 	if low_content == "neofetch" {
 		neofetch(s, m)
@@ -172,12 +180,41 @@ func niceCount(s *discordgo.Session, m *discordgo.MessageCreate) {
 	} else {
 		s.ChannelMessageSend(m.ChannelID, "This is the first time "+m.Author.Username+" has been logged saying \"Nice\"")
 
-		newUser := User{m.Author.ID, 1}
+		newUser := User{m.Author.ID, m.Author.Username, 1}
 
 		users = append(users, newUser)
 		writeUsers()
 
 	}
+
+}
+
+// Returns the top 10 Nice scores on the server
+func nice_scores(s *discordgo.Session, m *discordgo.MessageCreate) {
+
+	sort.Slice(users, func(i, j int) bool {
+		return users[i].NC > users[j].NC
+	})
+
+	// fmt.Println(users)
+
+	var b bytes.Buffer
+
+	b.WriteString("Nice Scores (Top 10): ")
+	b.WriteString("\n====================")
+
+	for i, user := range users {
+		// fmt.Println(i, user.ID)
+		count := strconv.Itoa(i + 1)
+		b.WriteString("\n " + count + ")	" + user.UName + "  :  " + strconv.Itoa(user.NC)) // add new result to buffer
+
+		// Cuts it off at the 10th score
+		if i > 8 {
+			break
+		}
+	}
+
+	s.ChannelMessageSend(m.ChannelID, "```"+b.String()+"```")
 
 }
 
