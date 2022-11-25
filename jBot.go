@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net"
 	"os"
 	"os/signal"
+	"regexp"
 	"runtime"
 	"strings"
 	"syscall"
@@ -66,6 +68,9 @@ func main() {
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
+	// used for checking rules against
+	low_content := TrimString(m.Content)
+
 	// Ignore all messages created by the bot itself
 	if m.Author.ID == s.State.User.ID {
 		return
@@ -77,6 +82,36 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	//log of all messages sent in the chat
 	p(m.Author.Username, ": ", m.Content)
+
+	////
+	/// Replies!
+	////
+
+	//Ping Pong
+	if low_content == "ping" {
+		_, err := s.ChannelMessageSend(m.ChannelID, "Pong!")
+		if err != nil {
+			fmt.Println("Error with Ping Pong")
+		}
+	}
+
+	//Kenobo
+	if low_content == "hello there" {
+		_, err := s.ChannelMessageSend(m.ChannelID, "General Kenobi! You are a bold one")
+		if err != nil {
+			fmt.Println("Error with Ping Pong")
+		}
+	}
+
+	// Marco Polo
+	if low_content == "marco" {
+		_, err := s.ChannelMessageSend(m.ChannelID, "Polo!")
+		if err != nil {
+			fmt.Println("Error with Ping Pong")
+		}
+	}
+
+	/// The Reactions!!
 
 }
 
@@ -98,4 +133,21 @@ func generateGUID() string {
 	address = strings.ReplaceAll(address, ":", "") // removes the : so it's easier to copy and paste
 
 	return string(address)
+}
+
+// Function for making strings easier to do checks on
+func TrimString(text string) string {
+
+	// Remove symbols (has to go before trim, as it will replace trailing symbols with " " )
+	re, err := regexp.Compile(`[^\w]`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	text = re.ReplaceAllString(text, " ")
+	fmt.Println(text)
+
+	text = strings.TrimSpace(text)
+	text = strings.ToLower(text)
+
+	return text
 }
