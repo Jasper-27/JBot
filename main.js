@@ -26,7 +26,7 @@ const SpamCap = 6
 //https://discord.com/oauth2/authorize?client_id=717442260131774485&scope=bot
 
 
-var token = fs.readFileSync('token.txt',{encoding:'utf8', flag:'r'});
+var token = fs.readFileSync('token',{encoding:'utf8', flag:'r'});
 var theUserIndex = null
 token = token.replace(/(\r\n|\n|\r)/gm, ""); //Removes the newline from the token file
 client.login(token)
