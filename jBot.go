@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"os/exec"
 	"os/signal"
 	"regexp"
 	"runtime"
@@ -115,8 +116,45 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		niceCount(s, m)
 	}
 
+	// Neofetch
+	if low_content == "neofetch" {
+		neofetch(s, m)
+	}
+
+	// fortune
+	if low_content == "fortune" {
+		fortune(s, m)
+	}
+
 }
 
+func neofetch(s *discordgo.Session, m *discordgo.MessageCreate) {
+
+	out, errorMessage := runCommand("neofetch --stdout")
+
+	if errorMessage != "" {
+		p(errorMessage)
+		s.ChannelMessageSend(m.ChannelID, "Neofetch couldn't run on the server. Perhaps it's not installed")
+		return
+	}
+
+	s.ChannelMessageSend(m.ChannelID, "```"+string(out)+"```")
+}
+
+func fortune(s *discordgo.Session, m *discordgo.MessageCreate) {
+
+	out, errorMessage := runCommand("fortune")
+
+	if errorMessage != "" {
+		p(errorMessage)
+		s.ChannelMessageSend(m.ChannelID, "Fortune couldn't run on the server. Perhaps it's not installed")
+		return
+	}
+
+	s.ChannelMessageSend(m.ChannelID, "```"+string(out)+"```")
+}
+
+// Increment the users "nice count" by one
 func niceCount(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if user, err := findUser(users, m.Author.ID); err == nil {
 
@@ -282,4 +320,58 @@ func getUsers() []User {
 
 	fmt.Printf("\n\n")
 	return users
+}
+
+////////////////////////////////////
+/// Running code			    ////
+////////////////////////////////////
+
+//Run a command on the host system
+func runCommand(command string) (outString string, errorMessage string) {
+
+	var shell string
+	errorMessage = ""
+
+	// Selecting which shell to use
+	if runtime.GOOS == "windows" {
+		shell = "powershell.exe"
+	} else {
+		shell = "sh"
+	}
+
+	// Change directory
+	if strings.HasPrefix(command, "cd ") {
+
+		dir := command[3:] // get the first three chars
+
+		os.Chdir(dir)
+
+		p(dir)
+
+		// run command, and if it causes an error create an error
+		out, err := exec.Command(shell, "-c", "pwd").Output()
+		if err != nil {
+			p(err.Error())
+			errorMessage = err.Error()
+
+			return
+		}
+
+		outString = string(out)
+		return
+	}
+
+	// run command, and if it causes an error create an error
+	out, err := exec.Command(shell, "-c", command).Output()
+	if err != nil {
+		p(err.Error())
+		errorMessage = err.Error()
+
+		return
+	}
+
+	outString = string(out)
+
+	return
+
 }

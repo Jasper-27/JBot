@@ -14,4 +14,6 @@ This was orginially a project to teach me NodeJS, and have some fun in my discor
 - Replies "General Kenobi" to the message "Hello There"
 - Reacts with a 🤮 when a user's message contains the word "uwu"
 - List "nice" scores
+- Run "neofetch" to see the specs of the server
+- Run "fortune" to see the result of the fortune program  
 
